@@ -57,7 +57,7 @@ Include:
       {
         user_id,
         title: titleLine || "simple recipe",
-        ingredients,
+        ingredients:JSON.stringify(ingredients),
         recipe_text,
       },
     ]);
