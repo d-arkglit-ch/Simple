@@ -3,7 +3,7 @@ import cors from "cors";
 import { createClient } from "@supabase/supabase-js";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
-dotenv.config({ path: ".env" });
+dotenv.config();
 
 const app = express();
 app.use(cors());
