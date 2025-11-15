@@ -44,7 +44,7 @@ Include:
 
     console.log(response);
 
-    const text = await response.text();
+    const text =  response.text;
 
     const [titleLine, ...rest] = text
       .trim()
