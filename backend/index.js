@@ -19,26 +19,23 @@ const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 app.post("/generate", async (req, res) => {
   try {
     const { user_id, ingredients } = req.body;
-    if (!user_id || Array.isArray(ingredients) || ingredients.length === 0) {
+    if (!user_id || !Array.isArray(ingredients) || ingredients.length === 0) {
       return res
         .status(400)
         .json({ error: "user_id and ingredients[] required" });
     }
 
-    const prompt = `[
-  {
-    "role": "system",
-    "content": "You are a friendly cooking assistant. The user will provide a list of ingredients. Using only those ingredients (and common basics like salt, water, oil), create an easy-to-make recipe. The recipe should not be too short: include a clear title, a brief description (1–2 lines), an ingredient list, and 4–7 simple steps. Keep language very beginner-friendly."
-  },
-  {
-    "role": "user",
-    "content": "My ingredients: ${ingredients.join(", ")}"
-  },
-  {
-    "role": "assistant",
-    "content": "Here is a simple and easy recipe using your ingredients!"
-  }
-]`;
+  const prompt = `
+You are a friendly cooking assistant.
+Using ONLY these ingredients: ${ingredients.join(", ")}, plus basics like salt, oil, and water,
+create a very simple recipe.
+
+Include:
+- A short title
+- A 1–2 line description
+- Ingredients list
+- 4–6 very simple steps
+`;
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
@@ -56,7 +53,7 @@ app.post("/generate", async (req, res) => {
       .filter(Boolean);
     const recipe_text = rest.join("\n");
 
-    const { data, error: inserError } = await supaAdmin.from(recipes).insert([
+    const { data, error: inserError } = await supaAdmin.from("recipes").insert([
       {
         user_id,
         title: titleLine || "simple recipe",

@@ -7,7 +7,8 @@ export default function RecipeGenerator({ ingredients = [], user, onSaved = () =
   async function handleGenerate() {
     if (!user) return alert("Please login first.");
     if (!ingredients.length) return alert("Add at least one ingredient.");
-
+console.log("USER:", user);
+console.log("INGREDIENTS:", ingredients);
     setLoading(true);
 
     try {
