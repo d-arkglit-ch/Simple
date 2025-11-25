@@ -26,7 +26,7 @@ app.post("/generate", async (req, res) => {
 
     const prompt = `
 You are a friendly cooking assistant.
-Using ONLY these ingredients: ${ingredients.join(", ")}, plus basics like salt, oil, and water,
+Using ONLY these ingredients: ${ingredients.join(", ")}, plus basics like salt, oil, and water, and all the basic spices and like sugar , 
 create a very simple recipe.
 
 Include:
